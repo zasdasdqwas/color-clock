@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html manifest="colorclock.appcache">
+    <head>
+        <title>Color Clock</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        
+        <meta name="apple-mobile-web-app-title" content="Color Clock">
+        
+        
+        <!-- iPad, iOS 7+ -->
+        <link href="apple-touch-icon-76x76.png" sizes="76x76" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPad, iOS 7+, retina -->
+        <link href="apple-touch-icon-152x152.png" sizes="152x152" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPad, iOS 6 -->
+        <link href="apple-touch-icon-72x72.png" sizes="72x72" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPad, iOS 6, retina -->
+        <link href="apple-touch-icon-144x144.png" sizes="144x144" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPhone 6 Plus icon -->
+        <link href="apple-touch-icon-precomposed-180.png" sizes="120x120"
+            rel="apple-touch-icon-precomposed">
+        <!-- iPhone, iOS 6 -->
+        <link href="apple-touch-icon-57x57.png" sizes="57x57" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPhone ,iOS 6, retina -->
+        <link href="apple-touch-icon-114x114.png" sizes="114x114" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPhone, iOS 7+ -->
+        <link href="apple-touch-icon-60x60.png" sizes="60x60" 
+            rel="apple-touch-icon-precomposed">
+        <!-- iPhone, iOS 7+, retina -->
+        <link href="apple-touch-icon-120x120.png" sizes="120x120" 
+            rel="apple-touch-icon-precomposed">
+        
+        
+        <!-- Static Startup Screens-->
+        <!-- iPad, retina, portrait -->
+        <link href="apple-touch-startup-image-1536x2008.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: portrait)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        <!-- iPad, retina, landscape -->
+        <link href="apple-touch-startup-image-1496x2048.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: landscape)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        <!-- iPad, portrait -->
+        <link href="apple-touch-startup-image-768x1004.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: portrait)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+        <!-- iPad, landscape -->
+        <link href="apple-touch-startup-image-748x1024.png"
+              media="(device-width: 768px) and (device-height: 1024px)
+                 and (orientation: landscape)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone 6 Plus portrait startup image -->
+        <link href="apple-touch-startup-image-1242x2148.png"
+              media="(device-width: 414px) and (device-height: 736px)
+                     and (-webkit-device-pixel-ratio: 3)
+                     and (orientation: portrait)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone 6 Plus landscape startup image -->
+        <link href="apple-touch-startup-image-1182x2208.png"
+              media="(device-width: 414px) and (device-height: 736px)
+                     and (-webkit-device-pixel-ratio: 3)
+                     and (orientation: landscape)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone 6 startup image -->
+        <link href="apple-touch-startup-image-750x1294.png"
+              media="(device-width: 375px) and (device-height: 667px)
+                     and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone, retina -->
+        <link href="apple-touch-startup-image-640x920.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone -->
+        <link href="apple-touch-startup-image-320x460.png"
+              media="(device-width: 320px) and (device-height: 480px)
+                 and (-webkit-device-pixel-ratio: 1)"
+              rel="apple-touch-startup-image">
+        <!-- iPhone 5 -->
+        <link href="apple-touch-startup-image-640x1096.png"
+              media="(device-width: 320px) and (device-height: 568px)
+                 and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        
+        <style type="text/css" media="screen">
+            /* html and body fill screen, with no margin or padding, and a black background*/
+            html, body {
+                width:100%;
+                height:100%;
+                margin:0;
+                padding:0;
+            }
+            /*initial body color chosen to match splash screen*/
+            body {
+                background:#552A7F;
+            }
+
+            /* center time/hex vertically and horizontally
+             * offset top and left by 50%
+             * translate (matrix transform) up and right by half of size
+             * support transform in all browsers 
+             * hide initially to prevent FOUC (see script)*/
+            #clock {
+                position:absolute;
+                top:50%;
+                left:50%;
+                color:#fff;
+                transform:          translate(-50%, -50%);
+                -webkit-transform:  translate(-50%, -50%);
+                -moz-transform:     translate(-50%, -50%);
+                -o-transform:       translate(-50%, -50%);
+                -ms-transform:      translate(-50%, -50%);
+                display:none;
+            }
+
+            /* font attributes for time/hex */
+            .visibleText {
+                display:block;
+                font-size:15vw;
+                font-family:'HelveticaNeue-UltraLight', sans-serif;
+                text-align:center;
+                opacity:0.8;
+            }
+
+            /* hex/time selector buttons */
+            #selectors {
+                width:100%;
+                text-align:center;
+            }
+            /* inline-block to support width and height */
+            #selectors a {
+                display:inline-block;
+                width:49%;
+                height:30px;
+                background:#CCCCCC;
+                opacity:0.5;
+            }
+            /* active button is more prominent */
+            #selectors a.active {
+                opacity:0.8;
+            }
+            /* mouse over (for desktop users) is full opacity */
+            #selectors a:hover {
+                opacity:1;
+            }
+            .noSelect {
+                -webkit-touch-callout:  none;
+                -webkit-user-select:    none;
+                -khtml-user-select:     none;
+                -moz-user-select:       none;
+                -ms-user-select:        none;
+                user-select:            none;
+                -webkit-tap-highlight-color:0;
+            }
+        </style>
+
+        <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery.color.js" type="text/javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+
+            $(function() {
+              
+                //prevent FOUC (Flash Of Unstyled Content)
+                $("#clock").show();
+
+                //update clock every interval
+                function clockupdate() {
+                    //create date object
+                    var date = new Date();
+                    //parse hours, minutes, and seconds
+                    var hours = date.getHours();
+                    var minutes = date.getMinutes();
+                    var seconds = date.getSeconds();
+                    //create color string from time
+                    var color = timeToHex(hours, minutes, seconds);
+                    
+                    //update color and time divs, padding leading zero if needed
+                    $('#hex').html('#' + color);
+                    $('#time').html(padZero(hours) + ':' + padZero(minutes) + ':' + padZero(seconds));
+                    
+                    //take 800 milliseconds (of 1000 millisecond interval) to animate to new color, for smooth transitions
+                    $('body').animate({'background-color': '#' + color}, 800);
+                    
+                    blackOrWhiteTextColorBasedOnBackground();
+                };
+
+                //update clock immediately and every second
+                clockupdate();
+                setInterval(clockupdate, 1000);
+                
+                //change color of text based on background color
+                function blackOrWhiteTextColorBasedOnBackground() {
+                    //get color in rgb format, as well as locations of first and last char of the string
+                    //e.g. "rgb(255, 255, 255)", 4, and 17
+                    var color = $('body').css('background-color');
+                    var startIndex = color.indexOf('(') + 1;
+                    var lastIndex = color.indexOf(')');
+                    
+                    //pull string of numbers only from color (using start and end parens as indeces)
+                    //  and create array of values by splitting around comma delimiter
+                    var values = color.slice(startIndex,lastIndex).split(',');
+                    
+                    //using the brightness index, determine color contrast value
+                    var o = Math.round( ( (parseInt(values[0]) * 299) + 
+                                          (parseInt(values[1]) * 587) + 
+                                          (parseInt(values[2]) * 114) ) / 1000);
+                    //if brighter than the middle composite color value (255/2), make text black. else make white
+                    (o > 127) ? $('#hex, #time').css('color', 'black') : $('#hex, #time').css('color', 'white');
+                    //(o > 127) ? $('#time').css('color', 'black') : $('#time').css('color', 'white');
+                }
+
+                //convert time to hex string
+                function timeToHex(hours, minutes, seconds) {
+                    /* determine percentage of current/total time: current hour of 24, current minute of 60, etc.
+                     * multiply that percentage * 255: hours = red, minutes = green, seconds = blue
+                     * convert to base16 string to get hex couplet
+                     * pad single digits with leading zero so color is represented correctly 
+                     *   (e.g. #09FF04 instead of #9FF4)
+                     * return all as string of 6 characters
+                     */
+                    return padZero(parseInt((hours / 24) * 255, 10).toString(16)) +
+                           padZero(parseInt((minutes / 60) * 255, 10).toString(16)) +
+                           padZero(parseInt((seconds / 60) * 255, 10).toString(16));
+                }
+
+                //pad value with zero if required
+                function padZero(val) {
+                    //convert incoming value to a string. this lets us pad numbers (time) and strings (color hex)
+                    var value = val.toString();
+                    //check to see if it's less than two characters
+                    //if so, add leading 0. if not return same value
+                    return (value.length < 2) ? "0" + value : value;
+                }
+
+                //use links for easy cursor, hover, and active behavior
+                //see css: convert to inline-block to allow sizing
+                $('#selectors a').click(function() {
+                    /* add the active class to the button clicked (this) and remove active class from all siblings.
+                     * (note textDisplay container to define siblings)
+                     * use method chaining for efficiency */
+                    $(this).addClass('active').siblings().removeClass('active');
+                    /* use id of text display as href, for easy targeting. get value using .attr()
+                     * the id retrieved is then converted to a jQuery object.
+                     * show that object, get its siblings, and hide them--again, using method chaining */
+                    $( $(this).attr('href') ).show().siblings().hide();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="clock">
+            <div id="textDisplay">
+                <div id="time" class="visibleText noSelect">00:00:00</div>
+                <!--use inline style to prevent possible flash of content-->
+                <div id="hex" class="visibleText noSelect" style="display:none;">#000000</div>
+            </div>
+            <div id="selectors">
+                <a href="#time" class="active"></a> <a href="#hex"></a>
+            </div>
+        </div>
+    </body>
+</html>
